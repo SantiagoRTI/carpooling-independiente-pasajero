@@ -1,11 +1,11 @@
-import 'package:caarpoling_independiente/pages/LoginDriver.dart';
+// ignore_for_file: file_names
+import 'package:caarpoling_independiente/pages/LoginDriver.dart' show LoginPage;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeDriver extends StatefulWidget {
   const HomeDriver({super.key});
-
   @override
   State<HomeDriver> createState() => _HomeDriverState();
 }
@@ -38,8 +38,9 @@ class _HomeDriverState extends State<HomeDriver> {
               // ignore: use_build_context_synchronously
               Navigator.push(context,
               MaterialPageRoute(builder: (context)=> const LoginPage())
-              );
-              },)
+                );
+              },
+            )
           ],
         ),
       )

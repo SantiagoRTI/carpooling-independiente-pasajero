@@ -47,7 +47,7 @@ class LogicLogin{
   String? token = data['token'];
   if (token != null) {
     prefs.setString('userToken', token); // Guardar el token en SharedPreferences
-  }
+    }
   }
  
   //Cargar el mensaje del usuario

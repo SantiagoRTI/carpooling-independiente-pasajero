@@ -11,17 +11,27 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   TextEditingController controllerUser = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
 
   bool _isObscure = true;
-
   bool isLoading = false;
 
-  //Notificacion error local
-  void _showErrorSnackBar(String errorMessage) {
-    LogicLogin.showErrorSnackBar(context, errorMessage);
+  //Notificacion de error
+  void _showErrorSnackBar(BuildContext context, String errorMessage) {
+  LogicLogin.showErrorSnackBar(context, errorMessage);
+  }
+
+  //Autentificacion del usuario y conexion al servidor 
+  Future<void> _login() async {
+    final result = await login(controllerUser.text, controllerPass.text);
+    if ( result == "200" ) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacementNamed(context, '/HomeDriver');
+    }else {
+      // ignore: use_build_context_synchronously
+      _showErrorSnackBar(context, result!);
+    }
   }
 
   //Carga de datos del usuario guardado
@@ -90,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   margin: const EdgeInsets.all(22),
                   child: MaterialButton(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 15,),    
                   color: const Color.fromRGBO(190, 30, 45, 1),
                   child: const Text("Ingresar", 
@@ -99,13 +110,13 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                         isLoading = true;
                       });
-                      login(controllerUser.text, controllerPass.text);
+                      await _login();
                       setState(() {
                         isLoading = false;
                       });
                     },
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),   
-                )),
+                )
+                ),
               ],
             ),
             if (isLoading) const Flexible(child: LoadingWidget()),
@@ -114,5 +125,5 @@ class _LoginPageState extends State<LoginPage> {
        )
       )
     );
-  } 
+  }
 }
