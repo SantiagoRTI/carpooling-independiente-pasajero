@@ -27,12 +27,12 @@ Future<String?> login(String email, String password) async {
       LogicLogin.saveTokenAndUserData(datauser);
       final userResponse = prefs.getString('userResponse');
       if (userResponse != null) {
-        // Redirigir al usuario a la página de inicio del conductor
+        // Redirigir al usuario a la página de inicio del conductor si tiene datos guardados
         Navigator.pushReplacementNamed(BuildContext as BuildContext, '/HomeDriver');
       }
     }
     return response.statusCode.toString(); // retorna el valor del servidor
-  }else if (datauser.containsKey("violations")) {  
+  }else if (datauser.containsKey("violations")) {
     return "Credenciales invalidas";
   }else{
     return "Error en la solicitud: ${response.reasonPhrase}"; // Devuelve el mensaje de error

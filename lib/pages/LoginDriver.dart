@@ -5,12 +5,13 @@ import 'package:caarpoling_independiente/Controler/LoadingWidget.dart';
 import 'package:caarpoling_independiente/Controler/authentication.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({Key? key}) : super(key: key);
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   TextEditingController controllerUser = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
 
@@ -19,13 +20,13 @@ class _LoginPageState extends State<LoginPage> {
 
   //Notificacion de error
   void _showErrorSnackBar(BuildContext context, String errorMessage) {
-  LogicLogin.showErrorSnackBar(context, errorMessage);
+    LogicLogin.showErrorSnackBar(context, errorMessage);
   }
 
   //Autentificacion del usuario y conexion al servidor 
   Future<void> _login() async {
     final result = await login(controllerUser.text, controllerPass.text);
-    if ( result == "200" ) {
+    if ( result == "200"){
       // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/HomeDriver');
     }else {
