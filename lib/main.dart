@@ -13,7 +13,7 @@ class MiApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Carpooling indenpendiente",
+      title: "Carpooling indenpendienteeeeeeee",
       home: const LoginPage(),
       routes: <String, WidgetBuilder>{
         "/HomeDriver":(BuildContext context)=>   HomeDriver(),
