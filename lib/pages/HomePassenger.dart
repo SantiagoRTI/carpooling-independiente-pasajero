@@ -1,16 +1,16 @@
 // ignore_for_file: file_names
-import 'package:caarpoling_independiente/pages/LoginDriver.dart' show LoginPage;
+import 'package:caarpoling_independiente/pages/LoginPassenger.dart' show LoginPage;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeDriver extends StatefulWidget {
-  const HomeDriver({super.key});
+class HomePassenger extends StatefulWidget {
+  const HomePassenger({super.key});
   @override
-  State<HomeDriver> createState() => _HomeDriverState();
+  State<HomePassenger> createState() => _HomePassengerState();
 }
 
-class _HomeDriverState extends State<HomeDriver> {
+class _HomePassengerState extends State<HomePassenger> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

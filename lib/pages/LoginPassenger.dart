@@ -28,10 +28,14 @@ class _LoginPageState extends State<LoginPage> {
     final result = await login(controllerUser.text, controllerPass.text);
     if ( result == "200"){
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, '/HomeDriver');
-    }else {
+      Navigator.pushReplacementNamed(context, '/HomePassenger');
+    }else if(result == null){
       // ignore: use_build_context_synchronously
-      _showErrorSnackBar(context, result!);
+      _showErrorSnackBar(context, "Credenciales invalidas");
+    }
+    else {
+      // ignore: use_build_context_synchronously
+      _showErrorSnackBar(context, result);
     }
   }
 
@@ -60,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: 300,
                   decoration: const BoxDecoration(
                   image: DecorationImage(
-                  image: AssetImage("assets/logo_conductor.png",))
+                  image: AssetImage("assets/logo_passenger.png",))
                   )),
                 ),
                 Container(

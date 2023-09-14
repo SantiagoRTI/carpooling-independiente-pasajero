@@ -1,7 +1,7 @@
 // ignore_for_file: sort_child_properties_last
 import 'package:flutter/material.dart';
-import 'pages/HomeDriver.dart';
-import 'pages/LoginDriver.dart';
+import 'pages/HomePassenger.dart';
+import 'pages/LoginPassenger.dart';
 
 
 void main() => runApp( MiApp());
@@ -16,7 +16,7 @@ class MiApp extends StatelessWidget {
       title: "Carpooling indenpendiente",
       home: const LoginPage(),
       routes: <String, WidgetBuilder>{
-        "/HomeDriver":(BuildContext context)=>   HomeDriver(),
+        "/HomePassenger":(BuildContext context)=>   HomePassenger(),
         "/LoginPage":(BuildContext context)=>  LoginPage()
       },
     );

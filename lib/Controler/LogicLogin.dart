@@ -40,18 +40,21 @@ class LogicLogin{
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  // Guardar mensaje de respuesta 
-  static Future<void> saveTokenAndUserData(Map<String, dynamic> data) async {
+  // Guardar el token de respuesta
+static Future<void> saveTokenUser(String token) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString('userResponse', jsonEncode(data)); // Guardar el mensaje y datos en SharedPreferences
-  String? token = data['token'];
-  if (token != null) {
-    prefs.setString('userToken', token); // Guardar el token en SharedPreferences
-    }
-  }
- 
-  //Cargar el mensaje del usuario
-  static Future<void> loadUser(BuildContext context) async { 
+  // Guardar el token en SharedPreferences
+  prefs.setString('userToken', token);
+}
+
+// guardar la urbanizacion del usaurio
+static Future<void> saveUrbanization(String urbanization) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('userUrbanization', urbanization);
+} 
+
+//Cargar el mensaje del usuario
+static Future<void> loadUser(BuildContext context) async { 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final userToken = prefs.getString('userToken');
   if (userToken != null && userToken.isNotEmpty) {
@@ -60,7 +63,7 @@ class LogicLogin{
     if (userResponse != null) {
       // Redirigir al usuario a la página de inicio del conductor
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, '/HomeDriver');
+      Navigator.pushReplacementNamed(context, '/HomePassenger');
       }
     }
   }
