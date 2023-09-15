@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'dart:convert' show json, jsonEncode;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,36 +22,42 @@ Future<String?> login(String email, String password) async {
   );
 
   var datauser = json.decode(response.body);
-
-  if (datauser.containsKey('token')) {
-  
+  final token = datauser['token'];
   final user = datauser['user'];
+
+  
   if (user != null && user.containsKey('roleId') && user.containsKey('status')) {
-    final token = datauser['token'];
-    final roleId = user['roleId']['id']; // Obtener roleId del usuario
+    
+    final roleId = user['roleId']['id']; // Obtener roleId del usuario 
     final status = user['status']['id']; // validar el estatus del usuario si esta en 7
     final idUser = user['id'];
+    final userRol = datauser['user']['roleId'];
 
     if (roleId == 136 && status == 7) {
-      // Verifica si existe un mensaje guardado
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String jsonUser = jsonEncode(user);
+      String jsonUserRol = jsonEncode(userRol);
+      await LogicLogin.saveUser(jsonUser);
+      await LogicLogin.saveUserRol(jsonUserRol);
       await LogicLogin.saveTokenUser(token);
-      
+
       await getUrbanizationIdUser(idUser, token);
       
-      final userResponse = prefs.getString('userResponse');
-      if (userResponse != null) {
-        // Redirigir al usuario a la página de inicio del conductor si tiene datos guardados
-        Navigator.pushReplacementNamed(BuildContext as BuildContext, '/HomePassenger');
-      }
+      // Verifica si existe un mensaje guardado
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // final userResponse = prefs.getString('userToken');
+      // if (userResponse != null) {
+      // // Redirigir al usuario a la página de inicio del conductor si tiene datos guardados
+      //   Navigator.pushReplacementNamed(BuildContext as BuildContext, '/HomePassenger');
+      // }
       return "200"; // Retorna el valor del servidor
     } else {
       return null; // Acceso denegado
     }
+  }else{
+    return null;    
   }
 }
-return null;
-}
+
 
 Future<String?> getUrbanizationIdUser(int id, String token ) async { 
 
@@ -67,13 +74,10 @@ Future<String?> getUrbanizationIdUser(int id, String token ) async {
   if (responsePassegerUrbanization.statusCode == 200) {
     var urbanizationReponse = json.decode(responsePassegerUrbanization.body);
     final urbanizationData = urbanizationReponse['urbanization'];    
-
+    
     String urbanizacionJson = jsonEncode(urbanizationData);
     LogicLogin.saveUrbanization(urbanizacionJson);
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final userToken = prefs.getString('userToken');
-    print(userToken);
+    
   } else {
     return null;
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:caarpoling_independiente/Controler/LogicLogin.dart';
 import 'package:caarpoling_independiente/Controler/LoadingWidget.dart';
 import 'package:caarpoling_independiente/Controler/authentication.dart';
+import '../Controler/LogicHome.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -37,6 +38,11 @@ class _LoginPageState extends State<LoginPage> {
       // ignore: use_build_context_synchronously
       _showErrorSnackBar(context, result);
     }
+  }
+
+  // ignore: non_constant_identifier_names
+  Future<void> _RoutesUrbanization() async {
+    await RoutesUrbanization();
   }
 
   //Carga de datos del usuario guardado
@@ -116,6 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                         isLoading = true;
                       });
                       await _login();
+                      await _RoutesUrbanization();
                       setState(() {
                         isLoading = false;
                       });
