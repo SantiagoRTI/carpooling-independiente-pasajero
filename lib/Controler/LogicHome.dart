@@ -1,4 +1,5 @@
 import 'dart:convert' show json, jsonEncode;
+import 'package:caarpoling_independiente/Controler/class/reques_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,7 +25,18 @@ Future<String?> RoutesUrbanization() async {
     final saveRoutes = getAlServiceUrbanization.body;
 
     prefs.setString('Routes', saveRoutes);
-    
+
+final resReqRes = routesUrbanFromJson(saveRoutes);
+
+    // Imprime la conversión de JSON a la clase
+    for (var route in resReqRes) {
+      print('------------------------------------');
+      print('Route ID: ${route.finalAddress}');
+      print('Driver Name: ${route.independentDriver.user.firstName} ${route.independentDriver.user.lastName}');
+      print('Chairs Available: ${route.chairsAvailable}');
+      // Agrega más campos según lo necesario
+      print('------------------------------------');
+    }
     return null;
   }else{
     return null;  
