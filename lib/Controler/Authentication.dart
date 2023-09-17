@@ -1,8 +1,7 @@
-// ignore: file_names
+// ignore_for_file: file_names
+
 import 'dart:convert' show json, jsonEncode;
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
 import 'LogicLogin.dart';
 
 //Consultar en una peticion de login al servidor
@@ -14,7 +13,8 @@ Future<String?> login(String email, String password) async {
 
   final response = await http.post(
     Uri.parse('http://solas.com.co:8015/facade/login'),
-    headers: headers,body:jsonEncode({
+    headers: headers,
+    body:jsonEncode({
       "email": email,
       "password": password
       }

@@ -1,5 +1,7 @@
-import 'dart:convert' show json, jsonEncode;
-import 'package:caarpoling_independiente/Controler/class/reques_response.dart';
+// ignore_for_file: file_names
+
+import 'dart:convert' show json;
+import 'package:caarpoling_independiente/controler/class/reques_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 

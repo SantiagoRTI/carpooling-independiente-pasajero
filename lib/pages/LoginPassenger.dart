@@ -1,9 +1,9 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, file_names
 import 'package:flutter/material.dart';
-import 'package:caarpoling_independiente/Controler/LogicLogin.dart';
-import 'package:caarpoling_independiente/Controler/LoadingWidget.dart';
+import 'package:caarpoling_independiente/controler/LogicLogin.dart';
+import 'package:caarpoling_independiente/widgets/LoadingWidget.dart';
 import 'package:caarpoling_independiente/Controler/authentication.dart';
-import '../Controler/LogicHome.dart';
+import '../controler/LogicHome.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -64,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Column( //Widgets la pantalla de login
               children: <Widget>[
+                Container(height: 60,),
                 Center(
                   child: Container( //contenedor que contiene el logo
                   height: 300,
@@ -109,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                   _isObscure = !_isObscure;
                   });},),),)),
                 Container(
-                  margin: const EdgeInsets.all(22),
+                  margin: const EdgeInsets.all(30),
                   child: MaterialButton(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 15,),    

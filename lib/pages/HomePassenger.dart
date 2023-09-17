@@ -1,9 +1,7 @@
 // ignore_for_file: file_names
-import 'package:caarpoling_independiente/pages/LoginPassenger.dart' show LoginPage;
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:caarpoling_independiente/Controler/LogicHome.dart';
+import 'package:caarpoling_independiente/controler/LogicHome.dart';
 
 class HomePassenger extends StatefulWidget {
   const HomePassenger({super.key});
