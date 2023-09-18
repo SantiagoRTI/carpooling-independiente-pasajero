@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Column( //Widgets la pantalla de login
               children: <Widget>[
-                Container(height: 60,),
+                Container(height: 30,),
                 Center(
                   child: Container( //contenedor que contiene el logo
                   height: 300,
@@ -110,10 +110,10 @@ class _LoginPageState extends State<LoginPage> {
                   _isObscure = !_isObscure;
                   });},),),)),
                 Container(
-                  margin: const EdgeInsets.all(30),
+                  margin: const EdgeInsets.all(20),
                   child: MaterialButton(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 15,),    
+                  padding: const EdgeInsets.symmetric(horizontal: 120, vertical: 15,),    
                   color: const Color.fromRGBO(190, 30, 45, 1),
                   child: const Text("Ingresar", 
                   style: TextStyle(fontSize: 20, color: Colors.white),

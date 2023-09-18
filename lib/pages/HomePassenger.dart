@@ -1,39 +1,56 @@
-// ignore_for_file: file_names
-
+import 'package:caarpoling_independiente/controler/class/reques_response.dart';
+import 'package:caarpoling_independiente/widgets/widgetsHome.dart';
 import 'package:flutter/material.dart';
 import 'package:caarpoling_independiente/controler/LogicHome.dart';
 
-class HomePassenger extends StatefulWidget {
-  const HomePassenger({super.key});
-  @override
-  State<HomePassenger> createState() => _HomePassengerState();
-}
+// ignore: must_be_immutable
+class HomePassenger extends StatelessWidget {
+  HomePassenger({super.key});
 
-class _HomePassengerState extends State<HomePassenger> {
+  var refreshKey=GlobalKey<RefreshIndicatorState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            MaterialButton(
-              padding: const EdgeInsets.symmetric(horizontal: 119, vertical: 15,),    
-              color: const Color.fromRGBO(190, 30, 45, 1),
-              child: const Text("Consulta ", style: TextStyle(color: Colors.white),),
-              onPressed: () async {
-                await(RoutesUrbanization());                
-              },
-            ),
-          ],
+      appBar: AppBar(title: const Text("Rutas asociadas a la urbanizacion")),
+      body: RefreshIndicator(
+        key: refreshKey,
+        onRefresh: refreshList,
+        child: Center(
+          child: FutureBuilder<List<RoutesUrban>>(
+            future: RoutesUrbanization(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final routes = snapshot.data!;
+                return buildRoutes(routes);
+              } else {
+                return const Text("No hay rutas por ahora");
+              }
+            },
+          ),
         ),
-      )
+      ),
     );
+  }
+  Future<void> refreshList() async{
+    refreshKey.currentState?.show(atTop: false);
+    await Future.delayed(Duration(seconds: 1));
+    
   }
 }
 
+
+
+//
 // ignore: non_constant_identifier_names
 
+
+// List<RoutesUrban>? routes = await RoutesUrbanization();
+                  // if (routes != null && routes.isNotEmpty) {
+                  //   String finalAddress = routes[0].description; // Obtén el "finalAddress" del primer elemento
+                  //   print('Final Address: $finalAddress');
+                  // } else {
+                  //   print('La respuesta es nula o la lista está vacía'); // Maneja los casos en que la respuesta sea nula o la lista esté vacía (error).
+                  // }
 
 // const Text("Bienvenido"),
             
@@ -50,3 +67,5 @@ class _HomePassengerState extends State<HomePassenger> {
             //     );
             //   },
             // )
+
+            
