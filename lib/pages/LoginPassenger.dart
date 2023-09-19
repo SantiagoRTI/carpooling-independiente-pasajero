@@ -29,6 +29,8 @@ class _LoginPageState extends State<LoginPage> {
     final result = await login(controllerUser.text, controllerPass.text);
     if ( result == "200"){
       // ignore: use_build_context_synchronously
+      await RoutesUrbanization();
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/HomePassenger');
     }else if(result == null){
       // ignore: use_build_context_synchronously
@@ -38,11 +40,6 @@ class _LoginPageState extends State<LoginPage> {
       // ignore: use_build_context_synchronously
       _showErrorSnackBar(context, result);
     }
-  }
-
-  // ignore: non_constant_identifier_names
-  Future<void> _RoutesUrbanization() async {
-    await RoutesUrbanization();
   }
 
   //Carga de datos del usuario guardado
@@ -123,7 +120,6 @@ class _LoginPageState extends State<LoginPage> {
                         isLoading = true;
                       });
                       await _login();
-                      await _RoutesUrbanization();
                       setState(() {
                         isLoading = false;
                       });

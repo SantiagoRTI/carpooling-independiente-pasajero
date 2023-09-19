@@ -1,42 +1,68 @@
 import 'package:caarpoling_independiente/controler/class/reques_response.dart';
+import 'package:caarpoling_independiente/widgets/LoadingWidget.dart';
 import 'package:caarpoling_independiente/widgets/widgetsHome.dart';
 import 'package:flutter/material.dart';
 import 'package:caarpoling_independiente/controler/LogicHome.dart';
 
-// ignore: must_be_immutable
 class HomePassenger extends StatelessWidget {
   HomePassenger({super.key});
 
-  var refreshKey=GlobalKey<RefreshIndicatorState>();
+  
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      appBar: AppBar(title: const Text("Rutas asociadas a la urbanizacion")),
-      body: RefreshIndicator(
-        key: refreshKey,
-        onRefresh: refreshList,
-        child: Center(
-          child: FutureBuilder<List<RoutesUrban>>(
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(190, 30, 45, 1),
+        title: const Text("Rutas asociadas a la urbanización")
+      
+      ),
+      body: Center(child: Refresh()),
+    );
+  }
+}
+
+class Refresh extends StatelessWidget {
+  Refresh({
+    super.key,
+  });
+
+  final ValueNotifier<int> _refreshNotifier = ValueNotifier<int>(0);
+
+  Future<void> _onRefresh() async {
+    await Future.delayed(const Duration(seconds: 1));
+    _refreshNotifier.value++; // Incrementa el valor del notificador para forzar la actualización
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var refreshKey = GlobalKey<RefreshIndicatorState>();
+    return RefreshIndicator(
+      key: refreshKey,
+      onRefresh: _onRefresh,
+      child: ValueListenableBuilder<int>(
+        valueListenable: _refreshNotifier,
+        builder: (context,_, __) {
+          return FutureBuilder<List<RoutesUrban>>(
             future: RoutesUrbanization(),
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Flexible(child: LoadingWidget());
+              } else if (snapshot.hasData) {
                 final routes = snapshot.data!;
                 return buildRoutes(routes);
               } else {
                 return const Text("No hay rutas por ahora");
               }
             },
-          ),
-        ),
+          );
+        },
       ),
     );
   }
-  Future<void> refreshList() async{
-    refreshKey.currentState?.show(atTop: false);
-    await Future.delayed(Duration(seconds: 1));
-    
-  }
 }
+
 
 
 

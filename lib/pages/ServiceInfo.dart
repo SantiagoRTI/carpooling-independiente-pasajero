@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class DetalleRuta extends StatefulWidget {
   final String nombreRuta;
+  final String nombreConductor;
 
-  const DetalleRuta({super.key, required this.nombreRuta});
+  const DetalleRuta({super.key, required this.nombreRuta, required this.nombreConductor});
 
   @override
   State<DetalleRuta> createState() => _DetalleRutaState();
@@ -16,9 +17,13 @@ class _DetalleRutaState extends State<DetalleRuta> {
       appBar: AppBar(
         title: Text(widget.nombreRuta),
       ),
-      // Aquí puedes agregar contenido relacionado con los detalles de la ruta
       body: Center(
-        child: Text('Detalles de la ruta: ${widget.nombreRuta}'),
+        child: Column(
+          children: [
+            Text('Detalles de la ruta: ${widget.nombreRuta}'),
+            Text('Detalles de la ruta: ${widget.nombreConductor}'),
+          ],
+        ),
       ),
     );
   }

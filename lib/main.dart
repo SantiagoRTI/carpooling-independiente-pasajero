@@ -17,10 +17,9 @@ class MiApp extends StatelessWidget {
       title: "Carpooling indenpendiente",
       home: const LoginPage(),
       routes: <String, WidgetBuilder>{
-        
         "/HomePassenger":(BuildContext context)=>   HomePassenger(),
         "/LoginPage":(BuildContext context)=>  LoginPage(),
-        "/ServiceInfo":(BuildContext context)=>  DetalleRuta(nombreRuta: "",)
+        "/ServiceInfo":(BuildContext context)=>  DetalleRuta(nombreRuta: "",nombreConductor: "",)
       },
     );
   }
