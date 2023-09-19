@@ -18,7 +18,7 @@ Future<List<RoutesUrban>> RoutesUrbanization() async {
 
   final response = await http.get(
     headers: headers,
-    Uri.parse('http://solas.com.co:8015/facade/get-independent/service/urbanization?id=1&status=53'),
+    Uri.parse('http://solas.com.co:8015/facade/get-independent/service/urbanization?id=${idUrbanizacion}&status=53'),
   );
 
   if (response.statusCode == 200) {
