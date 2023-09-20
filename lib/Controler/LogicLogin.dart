@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogicLogin{
-
   
   // Funcion para mostrar la notificacion de error
   static void showErrorSnackBar(BuildContext context, String errorMessage) {

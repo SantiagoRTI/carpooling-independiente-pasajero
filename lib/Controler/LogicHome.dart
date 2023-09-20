@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert' show json;
-import 'package:caarpoling_independiente/controler/class/reques_response.dart';
+import 'package:caarpoling_independiente/controler/class/RequesrResponseRoutesUrban.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,18 +18,22 @@ Future<List<RoutesUrban>> RoutesUrbanization() async {
 
   final response = await http.get(
     headers: headers,
-    Uri.parse('http://solas.com.co:8015/facade/get-independent/service/urbanization?id=${idUrbanizacion}&status=53'),
+    Uri.parse('http://solas.com.co:8015/facade/get-independent/service/urbanization?id=$idUrbanizacion&status=53'),
   );
 
   if (response.statusCode == 200) {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final responseRoutes = response.body;
     prefs.setString('Routes', responseRoutes);
-    
     final List<dynamic> routeData = json.decode(responseRoutes);
     return routeData.map<RoutesUrban>((data) => RoutesUrban.fromJson(data)).toList(); // Devuelve una instancia de RoutesUrban
-  }else{
-    return [];
+  }else if(response.statusCode == 404){
+    final responseRoutes = response.body;
+    final List<dynamic> routeData = json.decode(responseRoutes);
+    return routeData.map<RoutesUrban>((data) => RoutesUrban.fromJson(data)).toList(); // Devuelve una instancia de RoutesUrban;
+  }
+  else{
+    return[];
   }  
 }
 

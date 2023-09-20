@@ -1,13 +1,12 @@
-import 'package:caarpoling_independiente/controler/class/reques_response.dart';
+import 'package:caarpoling_independiente/controler/class/RequesrResponseRoutesUrban.dart';
 import 'package:caarpoling_independiente/widgets/LoadingWidget.dart';
 import 'package:caarpoling_independiente/widgets/widgetsHome.dart';
 import 'package:flutter/material.dart';
 import 'package:caarpoling_independiente/controler/LogicHome.dart';
 
-class HomePassenger extends StatelessWidget {
-  HomePassenger({super.key});
-
-  
+//Home del pasajero
+class HomePassenger extends StatelessWidget { 
+  const HomePassenger({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,43 +15,42 @@ class HomePassenger extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(190, 30, 45, 1),
         title: const Text("Rutas asociadas a la urbanización")
-      
       ),
-      body: Center(child: Refresh()),
+      body: Center(child: Refresh()), 
     );
   }
 }
 
-class Refresh extends StatelessWidget {
+class Refresh extends StatelessWidget { //clase de para refrescar la pagina 
   Refresh({
     super.key,
   });
 
-  final ValueNotifier<int> _refreshNotifier = ValueNotifier<int>(0);
+  final ValueNotifier<int> _refreshNotifier = ValueNotifier<int>(0); //variable para la recarga de la pagina 
 
-  Future<void> _onRefresh() async {
+  Future<void> _onRefresh() async { //funcion para recargar la pagina 
     await Future.delayed(const Duration(seconds: 1));
     _refreshNotifier.value++; // Incrementa el valor del notificador para forzar la actualización
   }
 
   @override
   Widget build(BuildContext context) {
-    var refreshKey = GlobalKey<RefreshIndicatorState>();
-    return RefreshIndicator(
+    var refreshKey = GlobalKey<RefreshIndicatorState>(); //refreshkey para actualizar la key de la clase
+    return RefreshIndicator( //widget de recargar 
       key: refreshKey,
-      onRefresh: _onRefresh,
-      child: ValueListenableBuilder<int>(
+      onRefresh: _onRefresh, //funcion para sumar _refreshNotifier
+      child: ValueListenableBuilder<int>( //ValueListenableBuilder para la recarga de la pagina 
         valueListenable: _refreshNotifier,
         builder: (context,_, __) {
-          return FutureBuilder<List<RoutesUrban>>(
-            future: RoutesUrbanization(),
+          return FutureBuilder<List<RoutesUrban>>( //lista de la clase RoutesUrban que esta dentro del FutureBuilder
+            future: RoutesUrbanization(), //llamamos a la funcion que consulta la rutas por urbanizacion
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Flexible(child: LoadingWidget());
               } else if (snapshot.hasData) {
                 final routes = snapshot.data!;
-                return buildRoutes(routes);
-              } else {
+                return buildRoutes(routes); //si tiene informacion el snapshot.hasData retorna el widgets de las rutas asociadas a la clase RoutesUrban
+              }else {
                 return const Text("No hay rutas por ahora");
               }
             },
@@ -62,36 +60,3 @@ class Refresh extends StatelessWidget {
     );
   }
 }
-
-
-
-
-//
-// ignore: non_constant_identifier_names
-
-
-// List<RoutesUrban>? routes = await RoutesUrbanization();
-                  // if (routes != null && routes.isNotEmpty) {
-                  //   String finalAddress = routes[0].description; // Obtén el "finalAddress" del primer elemento
-                  //   print('Final Address: $finalAddress');
-                  // } else {
-                  //   print('La respuesta es nula o la lista está vacía'); // Maneja los casos en que la respuesta sea nula o la lista esté vacía (error).
-                  // }
-
-// const Text("Bienvenido"),
-            
-            // MaterialButton(
-            //   padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 15,),    
-            //   color: const Color.fromRGBO(190, 30, 45, 1),
-            //   child: const Text("Cerrar sesion ", style: TextStyle(color: Colors.white),),
-            //   onPressed: () async {
-            //    SharedPreferences prefs = await SharedPreferences.getInstance();
-            //    await prefs.clear(); // Elimina todos los datos almacenados
-            //   // ignore: use_build_context_synchronously
-            //   Navigator.push(context,
-            //   MaterialPageRoute(builder: (context)=> const LoginPage())
-            //     );
-            //   },
-            // )
-
-            
