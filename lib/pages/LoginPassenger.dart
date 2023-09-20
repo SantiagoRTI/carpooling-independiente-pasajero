@@ -1,8 +1,9 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, file_names
 import 'package:flutter/material.dart';
-import 'package:caarpoling_independiente/Controler/LogicLogin.dart';
-import 'package:caarpoling_independiente/Controler/LoadingWidget.dart';
+import 'package:caarpoling_independiente/controler/LogicLogin.dart';
+import 'package:caarpoling_independiente/widgets/LoadingWidget.dart';
 import 'package:caarpoling_independiente/Controler/authentication.dart';
+import '../controler/LogicHome.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -27,6 +28,8 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _login() async {
     final result = await login(controllerUser.text, controllerPass.text);
     if ( result == "200"){
+      // ignore: use_build_context_synchronously
+      await RoutesUrbanization();
       // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/HomePassenger');
     }else if(result == null){
@@ -58,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Column( //Widgets la pantalla de login
               children: <Widget>[
+                Container(height: 30,),
                 Center(
                   child: Container( //contenedor que contiene el logo
                   height: 300,
@@ -103,10 +107,10 @@ class _LoginPageState extends State<LoginPage> {
                   _isObscure = !_isObscure;
                   });},),),)),
                 Container(
-                  margin: const EdgeInsets.all(22),
+                  margin: const EdgeInsets.all(20),
                   child: MaterialButton(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 15,),    
+                  padding: const EdgeInsets.symmetric(horizontal: 120, vertical: 15,),    
                   color: const Color.fromRGBO(190, 30, 45, 1),
                   child: const Text("Ingresar", 
                   style: TextStyle(fontSize: 20, color: Colors.white),
